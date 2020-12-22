@@ -1,5 +1,7 @@
 package org.javawebstack.openapi.parser;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,6 +65,25 @@ public class OpenAPI {
 
     public static OpenAPI fromJson(String json){
         return fromGraph(GraphElement.fromJson(json).object());
+    }
+
+    public static OpenAPI fromFile(File file){
+        if(!file.exists())
+            return null;
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int r;
+            while ((r = fis.read(buffer)) != -1)
+                baos.write(buffer, 0, r);
+            fis.close();
+            if(file.getName().endsWith(".json"))
+                return OpenAPI.fromJson(new String(baos.toByteArray(), StandardCharsets.UTF_8));
+            return OpenAPI.fromYaml(new String(baos.toByteArray(), StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            return null;
+        }
     }
 
 }
