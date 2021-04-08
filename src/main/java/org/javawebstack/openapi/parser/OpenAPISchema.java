@@ -6,7 +6,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
-import org.javawebstack.graph.util.GsonEnumAdapter;
+import org.javawebstack.abstractdata.util.GsonEnumAdapter;
 import org.javawebstack.openapi.parser.util.SchemaMapAdapter;
 import org.javawebstack.openapi.parser.util.StringListAdapter;
 

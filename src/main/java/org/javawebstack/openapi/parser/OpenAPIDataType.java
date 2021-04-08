@@ -1,6 +1,6 @@
 package org.javawebstack.openapi.parser;
 
-import org.javawebstack.graph.util.GsonEnum;
+import org.javawebstack.abstractdata.util.GsonEnum;
 
 import java.util.Locale;
 

@@ -9,10 +9,10 @@ import java.util.Map;
 import com.google.gson.annotations.JsonAdapter;
 import lombok.Getter;
 import lombok.Setter;
-import org.javawebstack.graph.GraphElement;
-import org.javawebstack.graph.GraphMapper;
-import org.javawebstack.graph.GraphObject;
-import org.javawebstack.graph.NamingPolicy;
+import org.javawebstack.abstractdata.AbstractElement;
+import org.javawebstack.abstractdata.AbstractMapper;
+import org.javawebstack.abstractdata.AbstractObject;
+import org.javawebstack.abstractdata.NamingPolicy;
 import org.javawebstack.openapi.parser.util.PathMapAdapter;
 import org.javawebstack.openapi.parser.util.ServerListAdapter;
 import org.javawebstack.openapi.parser.util.TagListAdapter;
@@ -21,7 +21,7 @@ import org.javawebstack.openapi.parser.util.TagListAdapter;
 @Setter
 public class OpenAPI {
 
-    private static final GraphMapper mapper = new GraphMapper().setNamingPolicy(NamingPolicy.CAMEL_CASE);
+    private static final AbstractMapper mapper = new AbstractMapper().setNamingPolicy(NamingPolicy.CAMEL_CASE);
 
     String openapi = "3.0.0";
     OpenAPIInfo info;
@@ -33,8 +33,8 @@ public class OpenAPI {
     Map<String, OpenAPIPath> paths = new HashMap<>();
     OpenAPIComponents components = new OpenAPIComponents();
 
-    public GraphObject toGraph(){
-        return mapper.toGraph(this).object();
+    public AbstractObject toGraph(){
+        return mapper.toAbstract(this).object();
     }
 
     public String toJson(){
@@ -53,18 +53,18 @@ public class OpenAPI {
         return toGraph().toYaml(pretty);
     }
 
-    public static OpenAPI fromGraph(GraphObject object){
+    public static OpenAPI fromGraph(AbstractObject object){
         if(object == null)
             return null;
-        return mapper.fromGraph(object, OpenAPI.class);
+        return mapper.fromAbstract(object, OpenAPI.class);
     }
 
     public static OpenAPI fromYaml(String yaml){
-        return fromGraph(GraphElement.fromYaml(yaml, true).object());
+        return fromGraph(AbstractElement.fromYaml(yaml, true).object());
     }
 
     public static OpenAPI fromJson(String json){
-        return fromGraph(GraphElement.fromJson(json).object());
+        return fromGraph(AbstractElement.fromJson(json).object());
     }
 
     public static OpenAPI fromFile(File file){

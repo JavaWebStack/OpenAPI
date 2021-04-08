@@ -5,8 +5,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.annotations.JsonAdapter;
 import lombok.Getter;
 import lombok.Setter;
-import org.javawebstack.graph.util.GsonEnum;
-import org.javawebstack.graph.util.GsonEnumAdapter;
+import org.javawebstack.abstractdata.util.GsonEnum;
+import org.javawebstack.abstractdata.util.GsonEnumAdapter;
 
 import java.util.Locale;
 
